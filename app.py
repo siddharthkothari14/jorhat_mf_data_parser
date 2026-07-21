@@ -52,7 +52,8 @@ def process_file(file):
         final_df['Folio No'] = df['Folio No']
 
     final_df['Initiator'] = ''
-    final_df['Mode of Payment'] = df['Mode of Payment']
+    if 'Mode of Payment' in df.columns:
+        final_df['Mode of Payment'] = df['Mode of Payment']
 
     # Amount
     if 'Amount/Units' in df.columns:
