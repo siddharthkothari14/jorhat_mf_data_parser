@@ -66,8 +66,8 @@ def process_file(file):
         final_df_stp['Folio No'] = df['Folio No']
 
     final_df['Initiator'] = ''
-    final_df_sip['Initiator'] = ''
-    final_df_stp['Initiator'] = ''
+    if 'Mode of Payment' in df.columns:
+        final_df['Mode of Payment'] = df['Mode of Payment']
 
     # Amount
     if 'Amount/Units' in df.columns:
@@ -105,6 +105,7 @@ def process_file(file):
         'IIN / PAN',
         'Folio No',
         'Scheme Name',
+        'Mode of Payment',
         'Amount',
         'SOA',
         'Mint'
