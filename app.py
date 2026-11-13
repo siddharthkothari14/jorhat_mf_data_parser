@@ -41,7 +41,13 @@ def process_file(file):
         final_df['Scheme Name'] = df['Scheme/From Scheme']
         final_df_sip['Scheme'] = df['Scheme/From Scheme']
         final_df_stp['Scheme'] = ''
-
+    if {'Action', 'Scheme/From Scheme', 'To Scheme'}.issubset(df.columns):
+        switch_rows = df['Action'].eq('SWITCH')
+        final_df_stp.loc[switch_rows, 'Scheme'] = (
+            df.loc[switch_rows, 'Scheme/From Scheme']
+            + ' to '
+            + df.loc[switch_rows, 'To Scheme']
+        )
     # Client Name
     if 'Primary Holder Name' in df.columns:
         final_df['Client Name'] = df['Primary Holder Name']
@@ -66,6 +72,8 @@ def process_file(file):
         final_df_stp['Folio No'] = df['Folio No']
 
     final_df['Initiator'] = ''
+    final_df_sip['Initiator'] = ''
+    final_df_stp['Initiator'] = ''
     if 'Mode of Payment' in df.columns:
         final_df['Mode of Payment'] = df['Mode of Payment']
 
